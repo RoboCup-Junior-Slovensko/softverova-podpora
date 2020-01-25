@@ -7,7 +7,7 @@ pouzitie:
                          eog image*.png)
   ./spracuj_obraz    - nacitava obrazky z kamery, vytahuje ich do 2-rozmerneho 
                        pola v pamati, kde ich mozno spracovavat vlastnym programom 
-                       (v tejto verzii len zrata pocet "cervenych" bodov.
+                       (v tejto verzii len zrata pocet "cervenych" bodov)
 
   FPS sa z programu meni komplikovane, ale da sa zmenit priamo z prikazoveho 
   riadku pomocou:
