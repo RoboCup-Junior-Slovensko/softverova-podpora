@@ -1,5 +1,6 @@
 #include <errno.h>
 #include <fcntl.h>
+#include <time.h>
 #include <linux/videodev2.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -10,6 +11,11 @@
 #include <sys/mman.h>
 #include <unistd.h>
 #include "pngwriter.h"
+
+//odkomentujte nasledovny riadok ak kamera nepodporuje BGR format
+//pozri v4l2-ctl -d /dev/videoX --list-formats
+
+//#define POUZI_YUV
 
 uint8_t *buffer;
 
@@ -44,8 +50,11 @@ int setup_format(int fd)
         // ale v tom pripade bude treba obrazok spracovavat v tom
         // formate, alebo si ho skonvertovat...
 
-        //fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_YUV420;
+#ifdef POUZI_YUV
+        fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_YUV420;
+#else
         fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_BGR24;
+#endif
 
         fmt.fmt.pix.field = V4L2_FIELD_NONE;
         
@@ -94,6 +103,10 @@ int detect_red(int fd)
     buf.memory = V4L2_MEMORY_MMAP;
     buf.index = 0;
     
+#ifdef POUZI_YUV
+    uint8_t *rgb = (uint8_t *)malloc(sirka * vyska * 3);
+#endif
+
     if(-1 == xioctl(fd, VIDIOC_STREAMON, &buf.type))
     {
         perror("nepodarilo sa zapnut snimanie obrazu");
@@ -132,9 +145,12 @@ int detect_red(int fd)
       }
       printf ("spracovavam obrazok %d... ", pocitadlo++);
 
-      //yuv422_to_rgb((uint8_t *)buffer, rgb, sirka, vyska);
-  
+#ifdef POUZI_YUV
+      yuv422_to_rgb((uint8_t *)buffer, rgb, sirka, vyska);
+      uint8_t *p = rgb;
+#else
       uint8_t *p = (uint8_t *)buffer;
+#endif
       double xs = 0;
       double ys = 0;
       int cnt = 0;
@@ -144,9 +160,15 @@ int detect_red(int fd)
       for (int i = 0; i < vyska; i++)
         for (int j = 0; j < sirka; j++)
         {
+#ifdef POUZI_YUV
+  	      uint8_t r = *(p++);
+  	      uint8_t g = *(p++);
+  	      uint8_t b = *(p++);
+#else
   	      uint8_t b = *(p++);
   	      uint8_t g = *(p++);
   	      uint8_t r = *(p++);
+#endif
   	      if ((r / 2 > g) && (r / 2 > b))
   	      {
   		      cnt++;
@@ -157,6 +179,9 @@ int detect_red(int fd)
     long long tm2 = usec();
     double cas = (tm2 - tm) / 1000000.0;
     printf("celkovy cas: %.2lf s (%.2lf fps)\n", cas, pocet_opakovani / (double)cas);
+#ifdef POUZI_YUV
+    free(rgb);
+#endif
     return 0;
 }
  

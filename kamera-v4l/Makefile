@@ -1,6 +1,6 @@
 LIBS=-lpng
 
-CCOPT=-std=c99
+CCOPT=-std=c11
 
 all: zapis_obrazky spracuj_obraz
 

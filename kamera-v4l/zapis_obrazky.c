@@ -1,5 +1,6 @@
 #include <errno.h>
 #include <fcntl.h>
+#include <time.h>
 #include <linux/videodev2.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -8,6 +9,11 @@
 #include <sys/mman.h>
 #include <unistd.h>
 #include "pngwriter.h"
+
+//odkomentujte nasledovny riadok ak kamera nepodporuje BGR format
+//pozri v4l2-ctl -d /dev/videoX --list-formats
+
+//#define POUZI_YUV
 
 uint8_t *buffer;
  
@@ -28,12 +34,15 @@ int setup_format(int fd)
         fmt.fmt.pix.width = 640;
         fmt.fmt.pix.height = 480;
 
-        // ak vasa kamera nepodporuje BGR24, m ozno podporuje YUV420,
+        // ak vasa kamera nepodporuje BGR24, mozno podporuje YUV420,
         // ale v tom pripade bude treba obrazok spracovavat v tom
         // formate, alebo si ho skonvertovat...
 
-        //fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_YUV420;
+#ifdef POUZI_YUV
+        fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_YUV420;
+#else
         fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_BGR24;
+#endif
 
         fmt.fmt.pix.field = V4L2_FIELD_NONE;
         
@@ -119,10 +128,11 @@ int capture_images(int fd)
       char filename[30];
       sprintf(filename, "image%d.png", counter++);
       
-      //ak ste hore pouzili YUV format:
-      //write_yuv422_png_image((uint8_t *)buffer, filename, 640, 480);
-  
+#ifdef POUZI_YUV
+      write_yuv422_png_image((uint8_t *)buffer, filename, 640, 480);
+#else
       write_bgr_png_image((uint8_t *)buffer, filename, 640, 480);
+#endif
     }
 
     return 0;
@@ -131,7 +141,7 @@ int capture_images(int fd)
 int main(int argc, char **argv)
 {
         int fd;
-        // ak mate pripojenych viac kamier, moze to byt napr. /dev/video1 
+        // ak mate pripojenych viac kamier, moze to byt napr. /dev/video2 
 	const char *device = "/dev/video0";
 	if (argc > 1) device = argv[1];
  

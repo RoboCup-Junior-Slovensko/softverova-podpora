@@ -22,6 +22,9 @@ pouzitie:
 
    modprobe bcm2835_v4l2
 
+  program je otestovany aj na notebooku s Ubuntu 19.10 (interna kamera, aj externa USB kamera),
+  len treba odkomentovat POUZI_YUV
+
 
 kompilacia:
 
