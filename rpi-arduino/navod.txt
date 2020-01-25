@@ -1,0 +1,21 @@
+Priklad na komunikaciu Raspberry Pi s Arduinom, ktore je pripojene cez USB (virtualny seriovy port)
+
+  rpi/priklad_komunikacie.c    
+
+    program pre Raspberry Pi, ktory otvori seriovy port pomocou programu plink
+    a do arduina po jeho inicializovani odosle 5 paketov s cislami 0-4,
+    zaroven v samostatnom vlakne cita pakety z arduina a spracovava ich
+    (v nasom priklade ich len vypisuje)
+
+  arduino/priklad_komunikacie/priklad_komunikacie.ino
+  
+    program pre Arduino, ktory kazde 4 sekundy posle paket s pozdravom
+    a okrem toho, vzdy ked dostane paket s cislom x, tak posle naspat
+    paket s textom dvojnasobok je 2x
+
+
+plink je sucastou balicka putty-tools
+                
+
+kontakt: Palo (pavel.petrovic@gmail.com)
+
