@@ -119,12 +119,15 @@ void precitaj_paket_z_arduina()
                     perror("stala sa chyba pri citani z arduina");
                     exit(-1);
                 }
-                else { usleep(2000); if (program_bezi) continue; else break; }
+                else usleep(2000); 
             }
-            precitane += precital;
-            if (precitane && paket[precitane - 1] == '\n') break;
-            if (paket[precitane - 1] == '\r') precitane--; 
-            if (precitane > MAX_DLZKA_PAKETU) break;
+            else 
+            {
+                precitane += precital;
+                if (precitane && paket[precitane - 1] == '\n') break;
+                if (paket[precitane - 1] == '\r') precitane--; 
+                if (precitane > MAX_DLZKA_PAKETU) break;
+            }
       } while (program_bezi);
   
       // precitany znak \n nakoniec vymazeme

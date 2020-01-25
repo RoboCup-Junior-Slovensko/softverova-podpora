@@ -17,5 +17,25 @@ Priklad na komunikaciu Raspberry Pi s Arduinom, ktore je pripojene cez USB (virt
 plink je sucastou balicka putty-tools
                 
 
+bezny vystup z programu by mal vyzerat napr. takto:
+
+otvorene spojenie s arduinom
+arduino inicializovane
+rpi->arduino: 0
+arduino->rpi: arduino zdravi kazde 4 sekundy
+arduino->rpi: dvojnasobok je 0
+rpi->arduino: 1
+arduino->rpi: dvojnasobok je 2
+rpi->arduino: 2
+arduino->rpi: dvojnasobok je 4
+rpi->arduino: 3
+arduino->rpi: dvojnasobok je 6
+rpi->arduino: 4
+arduino->rpi: arduino zdravi kazde 4 sekundy
+arduino->rpi: dvojnasobok je 8
+citaci thread skoncil
+program skoncil
+
+
 kontakt: Palo (pavel.petrovic@gmail.com)
 
