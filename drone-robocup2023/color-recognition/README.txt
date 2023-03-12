@@ -1,0 +1,1 @@
+Skript na rozoznávanie konkrétnych požadovaných farieb podľa vytvorej masky.

@@ -1,0 +1,1 @@
+Ukážka scriptu na rozoznávanie kontúr objektov a vyhodnotenie o aký geometrický útvar sa jedná (v tomto prípade štvoruholníky, v kóde je taktiež pridaných pár komentárov).
