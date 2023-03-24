@@ -8,7 +8,7 @@ while True:
 
 
     imgGrey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) #transformacia obrazu do greyscale
-    imgBlur = cv2.GaussianBlur(imgGrey, (7, 7), 2) #jemné rozmazanie obrazu pre odstránenie šumu
+    imgBlur = cv2.GaussianBlur(imgGrey, (7, 7), 1) #jemné rozmazanie obrazu pre odstránenie šumu
     imgCanny = cv2.Canny(imgBlur, 45, 45) #transformácia do verzie obrazu Canny -> následné využívanie tzv "Canny edge detectora"
 
     contours, hierarchy = cv2.findContours(imgCanny,
