@@ -9,7 +9,7 @@ while True:
 
     imgGrey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) #transformacia obrazu do greyscale
     imgBlur = cv2.GaussianBlur(imgGrey, (7, 7), 1) #jemné rozmazanie obrazu pre odstránenie šumu
-    imgCanny = cv2.Canny(imgBlur, 45, 45) #transformácia do verzie obrazu Canny -> následné využívanie tzv "Canny edge detectora"
+    imgCanny = cv2.Canny(imgBlur, 40, 80) #transformácia do verzie obrazu Canny -> následné využívanie tzv "Canny edge detectora"
 
     contours, hierarchy = cv2.findContours(imgCanny,
                                             cv2.RETR_EXTERNAL,
@@ -18,9 +18,9 @@ while True:
     for c in contours: #prechádzanie kontúr každého frameu
         area = cv2.contourArea(c)
 
-        if area > 1000: #vykoná sa ak je objekt instých rozmerov
-            cv2.drawContours(imgCanny, c, 0, (0,255,0), 3) #zakreslovanie kontúr
-            approx = cv2.approxPolyDP(c, 0.03*cv2.arcLength(c, True), True)
+        if area > 1000:
+            cv2.drawContours(img, c, -1, (0,255,0), 3) #zakreslovanie kontúr
+            approx = cv2.approxPolyDP(c, 0.04*cv2.arcLength(c, True), True)
             x = approx.ravel()[0]
             y = approx.ravel()[1] #zistenie súradníc (pre nasledovne zakreslenie textu vyhodnoteného útvaru do obrazu)
 
