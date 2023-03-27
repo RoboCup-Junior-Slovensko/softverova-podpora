@@ -5,3 +5,5 @@ Priklady, ukazky, uryvky kodu, ktore by sa mohli hodit
 * rpi-arduino   - priklad komunikacie Raspberry Pi (alebo ineho Linuxu) s Arduinom cez seriovy port
 * dron-tello/ocr-controller - ukazka softveroveho ovladania drona Tello aj so spracovanim obrazu 
 * drone-robocup2023 - priklady ako vyriešiť úlohu dron 2023
+
+## [pozrite si wiki s tutoriálom k programovaniu dronov"](https://github.com/RoboCup-Junior-Slovensko/softverova-podpora/wiki/Softv%C3%A9rov%C3%A1-podpora-pre-RoboCup-Junior-Slovensko "pozrite si wiki s tutoriálom k programovaniu dronov").  
