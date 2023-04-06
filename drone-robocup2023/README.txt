@@ -5,3 +5,5 @@ Vo všetkých súboroch sa nachádza krátke readme s popisom čo daný script r
 
 Taktiež tu nájdete aj názornú ukážku rozoznávania farieb spolu s vyhodnotením o aký geometrický útvar sa jedná (pridané png).
 
+Podrobný návod nájdete na wiki: https://github.com/RoboCup-Junior-Slovensko/softverova-podpora/wiki
+
