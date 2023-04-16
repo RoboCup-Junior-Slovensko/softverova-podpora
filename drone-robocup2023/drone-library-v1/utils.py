@@ -152,7 +152,7 @@ def get_begin_end_of_bounding(x, y, w, h, masked_frame):
 
 def compare_two_frames(first, second):
     """
-    porovná dva obrázky a zistí či sú od seba rozličné
+    Premení input obrazky do GrayScale verzie, porovná ich a zistí či sú od seba rozličné
     :param first: prvý frame
     :param second: druhý frame
     :return: vráti True ak sú od seba rozličné, inak False
