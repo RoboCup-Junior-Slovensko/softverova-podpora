@@ -1,13 +1,26 @@
 import cv2
 import math
 
+
 # MAKE SURE TO LOOK INTO MASKMAKER
 
 def get_frame_width(frame):
+    """
+    funkcia vráti šírku obrazu
+    :param frame:
+    :return:
+    """
     return frame.shape[1]
 
+
 def get_frame_height(frame):
+    """
+    funkcia vráti výšku obrazu
+    :param frame:
+    :return:
+    """
     return frame.shape[0]
+
 
 def get_largest_contour_of_mask(masked_frame):
     """
@@ -20,16 +33,26 @@ def get_largest_contour_of_mask(masked_frame):
         return max(contours, key=cv2.contourArea)
 
 
+def get_bounding_rect_coords(contour):
+    """
+    funkcia vráti tuple paramentrov x,y,w,h, kde x a y je ľavý horný roh obklopujúceh obldžníka kontúry, w a h sú je šírka a výška
+    :param contour:
+    :return:
+    """
+    x, y, w, h = cv2.boundingRect(contour)
+    return x, y, w, h
+
+
 def get_coords_of_drone(frame):
     """
 
     :param frame: frame
     :return: aktuálna poloha drona, teda stred zorného poľa drona
     """
-    return get_frame_width(frame)//2, get_frame_height(frame)//2
+    return get_frame_width(frame) // 2, get_frame_height(frame) // 2
 
 
-def get_center_of_bounding_Rect(contour):
+def get_center_of_contour(contour):
     """
     # funkcia vytvorí ohraničujúci štvoruholník pre zadanú kontúru a vráti jeho stredové hodnoty
     (odporúčam využívať s funkciou get_largest_contour_of_mask)
@@ -82,9 +105,9 @@ def get_needed_rotation_angle(x1, y1, x2, y2):
     posledného nenulového bodu bounding rectu (pixely sá čítáju zľava doprava od ľavého horného rohu)
     Tento výpočet slúži na aproximovanie potrebného uhla na rotáciu drona. Uhol sa vypočítava od stredu bounding rectu po
     prvý nájdený nenulový pixel.
-    :param x1: X-ová súradnica prvého nenulového pixelu v danom bounding rectangli
-    :param y1: Y-ová súradnica prvého nenulového pixelu v danom bounding rectangli
-    :param x2: X-ová súradnica posledného nenulového pixelu v danom bounding rectangli
+    :param x1: X-ová súradnica prvého nenulového pixelu v danom frame
+    :param y1: Y-ová súradnica prvého nenulového pixelu v danom frame
+    :param x2: X-ová súradnica posledného nenulového pixelu v danom frame
     :param y2: Y-ová súradnica posledného nenulového pixelu v danom bounding rectangli
     :return: vráti potrebný uhol natočenia drona (kladná hodnota : rotácia vpravo, záporná hodnota : rotácia vľavo)
     """
@@ -132,4 +155,3 @@ def compare_two_frames(first, second):
     if cv2.countNonZero(diff) != 0:
         return True
     return False
-
