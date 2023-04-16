@@ -4,6 +4,14 @@ import math
 
 # MAKE SURE TO LOOK INTO MASKMAKER
 
+def flip_frame(frame):
+    """
+    funkcia na otočenie zrkadleného obrazu, ktorý dron dostal
+    :param frame:
+    :return:
+    """
+    return cv2.flip(frame,0)
+
 def get_frame_width(frame):
     """
     funkcia vráti šírku obrazu
