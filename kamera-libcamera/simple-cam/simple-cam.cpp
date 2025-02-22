@@ -80,7 +80,8 @@ static void processRequest(Request *request)
 
         /* Map buffer memory */
         const FrameBuffer::Plane &bufferPlane = buffer->planes()[0]; // Used for mapping
-        const FrameMetadata::Plane &metaPlane = metadata.planes()[0]; // Contains bytesused
+
+        size_t numPixels = metadata.planes()[0].bytesused; // Contains bytesused
 
         void *data = mmap(nullptr, bufferPlane.length, PROT_READ, MAP_SHARED,
                           bufferPlane.fd.get(), 0);
@@ -93,7 +94,6 @@ static void processRequest(Request *request)
 
         /* Print pixel values (assumes YUV420 format) */
         uint8_t *yuvData = static_cast<uint8_t *>(data);
-        size_t numPixels = metaPlane.bytesused;  // Get correct bytes used from metadata
 
         std::cout << "Pixel values:" << std::endl;
         for (size_t i = 0; i < numPixels; i++)
