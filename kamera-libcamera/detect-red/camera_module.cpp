@@ -242,7 +242,7 @@ std::string cameraName(Camera *camera)
 	return name;
 }
 
-extern "C" int camera_main()
+extern "C" int camera_main(int width, int height)
 {
 	/*
 	 * --------------------------------------------------------------------
@@ -375,8 +375,8 @@ extern "C" int camera_main()
 	 * The Camera configuration procedure fails with invalid parameters.
 	 */
 //#if 0
-	streamConfig.size.width = 1920; 
-	streamConfig.size.height = 1080; 
+	streamConfig.size.width = width; 
+	streamConfig.size.height = height; 
 	streamConfig.pixelFormat = libcamera::formats::RGB888;
 
 	int ret = camera->configure(config.get());

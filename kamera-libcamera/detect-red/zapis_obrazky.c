@@ -9,9 +9,12 @@
 #include "pngwriter.h"
 #include "camera_module.h"
 
+//#define POUZI_YUV
 
 extern int to_exit;
 
+static int width = 1920;
+static int height = 1080;
 
 void save_png_frame(uint8_t *RGB)
 {
@@ -22,9 +25,9 @@ void save_png_frame(uint8_t *RGB)
       sprintf(filename, "image%d.png", counter++);
       
 #ifdef POUZI_YUV
-      write_yuv422_png_image((uint8_t *)RGB, filename, 1920, 1080);
+      write_yuv422_png_image((uint8_t *)RGB, filename, width, height);
 #else
-      write_bgr_png_image((uint8_t *)RGB, filename, 1920, 1080);
+      write_bgr_png_image((uint8_t *)RGB, filename, width, height);
 #endif
 
       if (counter == 5) to_exit = 1;
@@ -44,7 +47,7 @@ int main()
 {
         setup_camera_callback(save_png_frame);
 
-        camera_main();
+        camera_main(width, height);
 
         return 0;
 }
