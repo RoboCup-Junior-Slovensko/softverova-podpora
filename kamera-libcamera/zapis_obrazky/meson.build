@@ -1,4 +1,4 @@
-project('spracuj_obraz', 'c', 'cpp',
+project('zapis_obrazky', 'c', 'cpp',
 	default_options : [
 		'werror=true',
 		'warning_level=2',
@@ -7,7 +7,7 @@ project('spracuj_obraz', 'c', 'cpp',
 
 # simple-cam.cpp is the fully commented application
 src_files = files([
-	'spracuj_obraz.c',
+	'zapis_obrazky.c',
         'pngwriter.c',
         'camera_module.cpp',
 	'event_loop.cpp',
@@ -26,6 +26,6 @@ cpp_arguments = [ '-Wno-unused-parameter', ]
 add_project_arguments(cpp_arguments, language : 'cpp')
 
 # simple-cam executable
-spracuj_obraz = executable('spracuj_obraz', src_files,
+zapis_obrazky = executable('zapis_obrazky', src_files,
                         dependencies : deps)
 

@@ -32,9 +32,9 @@ message(STATUS "    include path: ${LIBPNG_INCLUDE_DIRS}")
 
 include_directories(${CMAKE_SOURCE_DIR} ${LIBCAMERA_INCLUDE_DIRS} ${LIBEVENT_INCLUDE_DIRS} ${LIBPNG_INCLUDE_DIRS})
 
-add_executable(spracuj_obraz camera_module.cpp event_loop.cpp spracuj_obraz.c pngwriter.c)
+add_executable(zapis_obrazky camera_module.cpp event_loop.cpp zapis_obrazky.c pngwriter.c)
 
-target_link_libraries(spracuj_obraz PkgConfig::LIBEVENT)
-target_link_libraries(spracuj_obraz PkgConfig::LIBCAMERA)
-target_link_libraries(spracuj_obraz PkgConfig::LIBPNG)
+target_link_libraries(zapis_obrazky PkgConfig::LIBEVENT)
+target_link_libraries(zapis_obrazky PkgConfig::LIBCAMERA)
+target_link_libraries(zapis_obrazky PkgConfig::LIBPNG)
 
