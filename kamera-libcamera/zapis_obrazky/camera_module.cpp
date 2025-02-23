@@ -12,6 +12,7 @@
 #include <memory>
 
 #include <libcamera/libcamera.h>
+#include <libcamera/control_ids.h>
 
 #include "event_loop.h"
 #include "camera_module.h"
@@ -399,6 +400,7 @@ extern "C" int camera_main(int width, int height)
 	 * Once we have a validated configuration, we can apply it to the
 	 * Camera.
 	 */
+
 	camera->configure(config.get());
 
 	/*
@@ -477,7 +479,7 @@ extern "C" int camera_main(int width, int height)
 		 * Controls can be added to a request on a per frame basis.
 		 */
 		ControlList &controls = request->controls();
-		controls.set(controls::Brightness, 0.5);
+		controls.set(controls::Brightness, 0.2);
 
 		requests.push_back(std::move(request));
 	}
